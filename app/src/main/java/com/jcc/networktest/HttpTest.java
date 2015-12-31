@@ -4,8 +4,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -21,6 +23,7 @@ public class HttpTest extends AppCompatActivity {
     public  static  final  int SHOW_RESPONSE = 0;
 
     private TextView responseText;
+    private EditText url_text;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -38,6 +41,7 @@ public class HttpTest extends AppCompatActivity {
         setContentView(R.layout.activity_http_test);
 
         responseText = (TextView)findViewById(R.id.response_text);
+        url_text = (EditText)findViewById(R.id.url_text);
     }
 
     public void buttonSendRequestClick(View view) {
@@ -79,7 +83,11 @@ public class HttpTest extends AppCompatActivity {
     }
 
     private void sendRequestUsingHttpUtil(){
-        HttpUtil.sendHttpRequest("http://www.baidu.com", new HttpCallbackListener() {
+        String url = url_text.getText().toString().trim();
+        if (TextUtils.isEmpty(url)) url = "http://www.baidu.com";
+        if (!url.startsWith("http")) url = "http://" + url;
+
+        HttpUtil.sendHttpRequest(url, new HttpCallbackListener() {
             @Override
             public void onFinish(String response) {
                 Message message = new Message();

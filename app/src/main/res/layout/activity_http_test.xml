@@ -10,12 +10,19 @@
     android:orientation="vertical"
     tools:context="com.jcc.networktest.HttpTest">
 
-    <Button android:id="@+id/send_request"
-        android:text="Send Request"
-        android:onClick="buttonSendRequestClick"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="wrap_content">
+        <EditText android:id="@+id/url_text"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button android:id="@+id/send_request"
+            android:text="Send"
+            android:onClick="buttonSendRequestClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
